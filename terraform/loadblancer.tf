@@ -4,7 +4,7 @@ resource "aws_lb" "main" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.lb.id]
-  subnets            = aws_subnet.public[*].id
+  subnets            = [for x in keys(aws_subnet.public) : aws_subnet.public[x].id]
 
   tags = local.tags
 }
