@@ -11,6 +11,9 @@ resource "aws_security_group" "lb" {
       protocol         = "tcp"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = null
+      prifix_list_ids  = null
+      security_groups  = null
+      self             = null
     }
   ]
 
@@ -22,6 +25,9 @@ resource "aws_security_group" "lb" {
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = null
+      prifix_list_ids  = null
+      security_groups  = null
+      self             = null
     }
   ]
 
