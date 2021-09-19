@@ -5,10 +5,12 @@ resource "aws_ecs_cluster" "main" {
 }
 
 resource "aws_ecs_service" "main" {
-  name            = local.name
-  cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.main.arn
-  desired_count   = 1
+  name                     = local.name
+  cluster                  = aws_ecs_cluster.main.id
+  task_definition          = aws_ecs_task_definition.main.arn
+  desired_count            = 1
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
 
   network_configuration {
     subnets          = [for x in keys(aws_subnet.public) : aws_subnet.public[x].id]
