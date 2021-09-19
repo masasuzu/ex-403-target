@@ -30,12 +30,12 @@ resource "aws_ecs_task_definition" "main" {
   family                   = local.name
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
+  cpu                      = 256
+  memory                   = 512
   container_definitions = jsonencode([
     {
       name      = local.name
       image     = "masasuzu/ex-return-403-app:latest"
-      cpu       = 256
-      memory    = 512
       essential = true
       portMappings = [
         {
