@@ -49,7 +49,14 @@ resource "aws_route_table" "public" {
   }
 }
 
-resource "aws_route_table_association" "public" {
+resource "aws_route_table_association" "public_gateway" {
   gateway_id     = aws_internet_gateway.main.id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "public" {
+  for_each = local.cidr_block.public
+
+  subnet_id      = aws_subnet.public[each.key].id
   route_table_id = aws_route_table.public.id
 }
