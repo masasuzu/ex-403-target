@@ -60,3 +60,35 @@ resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public[each.key].id
   route_table_id = aws_route_table.public.id
 }
+
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.main.id
+
+  route = []
+
+  tags = {
+    Name = "${local.name}-private"
+  }
+}
+
+resource "aws_route_table_association" "private_gateway" {
+  gateway_id     = aws_nat_gateway.main.id
+  route_table_id = aws_route_table.private.id
+}
+
+# Nat
+resource "aws_eip" "nat" {
+  vpc = true
+
+  tags {
+    Name = "${local.name}-nat"
+  }
+}
+resource "aws_nat_gateway" "main" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = aws_subnet.public["ap-northeast-1a"].id
+
+  tags = local.tags
+
+  depends_on = [aws_internet_gateway.main]
+}
