@@ -48,8 +48,9 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route" "public_gateway" {
-  gateway_id     = aws_internet_gateway.main.id
-  route_table_id = aws_route_table.public.id
+  gateway_id             = aws_internet_gateway.main.id
+  destination_cidr_block = "0.0.0.0/0"
+  route_table_id         = aws_route_table.public.id
 }
 
 resource "aws_route_table_association" "public" {
