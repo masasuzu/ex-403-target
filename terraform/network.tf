@@ -77,6 +77,13 @@ resource "aws_route" "private_nat" {
   nat_gateway_id         = aws_nat_gateway.main.id
 }
 
+resource "aws_route_table_association" "private" {
+  for_each = local.cidr_block.private
+
+  subnet_id      = aws_subnet.private[each.key].id
+  route_table_id = aws_route_table.private.id
+}
+
 # Nat
 resource "aws_eip" "nat" {
   vpc = true
