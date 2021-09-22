@@ -80,7 +80,7 @@ resource "aws_route_table_association" "private_gateway" {
 resource "aws_eip" "nat" {
   vpc = true
 
-  tags {
+  tags = {
     Name = "${local.name}-nat"
   }
 }
