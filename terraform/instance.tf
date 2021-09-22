@@ -15,7 +15,7 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "main" {
-  ami           = data.aws_ami.ubuntu
+  ami           = data.aws_ami.ubuntu.id
   instance_type = "t4g.micro"
 
   subnet_id            = aws_subnet.private["ap-northeast-1a"].id
