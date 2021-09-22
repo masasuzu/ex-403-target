@@ -18,9 +18,9 @@ resource "aws_instance" "main" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t4g.micro"
 
-  subnet_id            = aws_subnet.private["ap-northeast-1a"].id
-  iam_instance_profile = aws_iam_instance_profile.ec2.name
-  security_groups      = [aws_security_group.main.id]
+  subnet_id              = aws_subnet.private["ap-northeast-1a"].id
+  iam_instance_profile   = aws_iam_instance_profile.ec2.name
+  vpc_security_group_ids = [aws_security_group.main.id]
 
   user_data = <<EOL
 #cloud-config
