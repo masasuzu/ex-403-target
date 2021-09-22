@@ -12,7 +12,7 @@ resource "aws_ecs_service" "main" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = [for x in keys(aws_subnet.public) : aws_subnet.public[x].id]
+    subnets          = [for x in keys(aws_subnet.private) : aws_subnet.private[x].id]
     security_groups  = [aws_security_group.main.id]
     assign_public_ip = false
   }
